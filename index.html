@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="download">download</div>
+    <script>
+        // let downloadEle = document.getElementById('download');
+        // download.addEventListener('click', function(){
+        //     fetch('http://127.0.0.1:3000/download', {
+        //         method: 'post',
+        //         body: JSON.stringify({fileName: '04-03.mp4'}),
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         }
+        //     }).then(res => {
+        //         // 返回的是个流
+        //         return res.arrayBuffer();
+        //     }).then(res => {
+        //         // 1、转成 blob
+        //         const blob = new Blob([res], {type: 'image/png'});
+        //         // 2、blob 转成 url
+        //         const url = URL.createObjectURL(blob);
+        //         // 3、创建一个 a 标签，并设置 href 属性
+        //         const a = document.createElement('a');
+        //         a.href = url;
+        //         a.download = 'test.mp4';// 下载后文件的名字
+        //         a.click();
+        //     })
+        // })
+
+
+        class Download {
+            constructor() {
+                this.download = document.getElementById('download');
+                this.download.addEventListener('click', this.downloadFile.bind(this));
+            }
+            downloadFile() {
+                fetch('http://127.0.0.1:3000/download', {
+                    method: 'post',
+                    body: JSON.stringify({fileName: '1.jpg'}),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => {
+                    // 返回的是个流
+                    return res.arrayBuffer();
+                }).then(res => {
+                    // 1、转成 blob
+                    const blob = new Blob([res], {type: 'image/png'});
+                    // 2、blob 转成 url
+                    const url = URL.createObjectURL(blob);
+                    // 3、创建一个 a 标签，并设置 href 属性
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'test.png';// 下载后文件的名字
+                    a.click();
+                })
+                
+            }
+        }
+        new Download();
+    </script>
+</body>
+</html>
