@@ -39,6 +39,9 @@
                 this.download.addEventListener('click', this.downloadFile.bind(this));
             }
             downloadFile() {
+                // 一开始遇到的问题是 请求报错 405； 最后发现请求路径有问题
+                // 应该是            http://127.0.0.1:3000/download
+                // 但是一开始写的请求是http:127.0.0.1:3000/download
                 fetch('http://127.0.0.1:3000/download', {
                     method: 'post',
                     body: JSON.stringify({fileName: '1.jpg'}),
